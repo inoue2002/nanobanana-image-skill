@@ -13,7 +13,7 @@ Google Gemini API の Nano Banana 機能を使った画像生成スキル for [C
 ## インストール
 
 ```bash
-claude mcp add-skill https://github.com/inoue2002/nanobanana-image-skill
+npx add-skill inoue2002/nanobanana-image-skill
 ```
 
 ## 前提条件
