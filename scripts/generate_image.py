@@ -37,7 +37,7 @@ def get_api_key():
     key = os.environ.get("NANOBANANA_SKILL_GOOGLE_API_KEY")
     if not key:
         print("Error: NANOBANANA_SKILL_GOOGLE_API_KEY を設定してください", file=sys.stderr)
-        print("永続化: claude config set env NANOBANANA_SKILL_GOOGLE_API_KEY=your-key", file=sys.stderr)
+        print("永続化: ~/.claude/settings.json の env に追加", file=sys.stderr)
         print("取得方法: https://aistudio.google.com/", file=sys.stderr)
         sys.exit(1)
     return key
