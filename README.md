@@ -23,13 +23,11 @@ npx add-skill inoue2002/nanobanana-image-skill
 ### APIキーの取得と永続化
 
 1. [Google AI Studio](https://aistudio.google.com/) でAPIキーを取得
-2. 以下のコマンドで永続化（推奨）：
+2. 以下のコマンドで永続化：
 
 ```bash
-claude config set --global env NANOBANANA_SKILL_GOOGLE_API_KEY=your-api-key
+claude config set env NANOBANANA_SKILL_GOOGLE_API_KEY=your-api-key
 ```
-
-※ 一時的に使用する場合は `export NANOBANANA_SKILL_GOOGLE_API_KEY=your-api-key`
 
 ## 使い方
 

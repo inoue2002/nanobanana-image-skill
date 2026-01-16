@@ -15,7 +15,7 @@ Google Gemini APIを使用した画像生成・編集スキル。
 1. [Google AI Studio](https://aistudio.google.com/) でAPIキーを取得
 2. 永続化コマンドを実行：
 ```bash
-claude config set --global env NANOBANANA_SKILL_GOOGLE_API_KEY=取得したAPIキー
+claude config set env NANOBANANA_SKILL_GOOGLE_API_KEY=取得したAPIキー
 ```
 
 ## モデル
