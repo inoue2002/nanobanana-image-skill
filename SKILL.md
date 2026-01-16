@@ -22,7 +22,7 @@ claude config set --global env NANOBANANA_SKILL_GOOGLE_API_KEY=取得したAPI�
 
 | モデル | ID | 特徴 |
 |--------|-----|------|
-| Nano Banana | `flash` | 高速・効率重視 |
+| ノーマル | `flash` | 高速・効率重視 |
 | Nano Banana Pro | `pro` (デフォルト) | 高品質・推論強化・4K対応 |
 
 ## ワークフロー

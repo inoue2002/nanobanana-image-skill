@@ -19,7 +19,7 @@ from pathlib import Path
 
 # 利用可能なモデル
 MODELS = {
-    "flash": "gemini-2.5-flash-image",      # Nano Banana (高速・効率重視)
+    "flash": "gemini-2.5-flash-image",      # ノーマル (高速・効率重視)
     "pro": "gemini-3-pro-image-preview",    # Nano Banana Pro (高品質・推論強化)
 }
 
