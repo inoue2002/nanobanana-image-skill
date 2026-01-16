@@ -34,9 +34,10 @@ GOOGLE_SEARCH_TOOL = {"google_search": {}}
 
 def get_api_key():
     """環境変数からAPIキーを取得"""
-    key = os.environ.get("GEMINI_API_KEY")
+    key = os.environ.get("NANOBANANA_SKILL_GOOGLE_API_KEY")
     if not key:
-        print("Error: GEMINI_API_KEY を設定してください", file=sys.stderr)
+        print("Error: NANOBANANA_SKILL_GOOGLE_API_KEY を設定してください", file=sys.stderr)
+        print("永続化: claude config set --global env NANOBANANA_SKILL_GOOGLE_API_KEY=your-key", file=sys.stderr)
         print("取得方法: https://aistudio.google.com/", file=sys.stderr)
         sys.exit(1)
     return key

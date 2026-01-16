@@ -9,8 +9,14 @@ Google Gemini APIを使用した画像生成・編集スキル。
 
 ## 前提条件
 
-環境変数 `GEMINI_API_KEY` が設定されていること。
-未設定の場合は [Google AI Studio](https://aistudio.google.com/) で取得を依頼。
+環境変数 `NANOBANANA_SKILL_GOOGLE_API_KEY` が設定されていること。
+
+未設定の場合は以下を案内：
+1. [Google AI Studio](https://aistudio.google.com/) でAPIキーを取得
+2. 永続化コマンドを実行：
+```bash
+claude config set --global env NANOBANANA_SKILL_GOOGLE_API_KEY=取得したAPIキー
+```
 
 ## モデル
 

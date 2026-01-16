@@ -18,13 +18,18 @@ claude mcp add-skill https://github.com/inoue2002/nanobanana-image-skill
 
 ## 前提条件
 
-環境変数 `GEMINI_API_KEY` を設定してください。
+環境変数 `NANOBANANA_SKILL_GOOGLE_API_KEY` を設定してください。
+
+### APIキーの取得と永続化
+
+1. [Google AI Studio](https://aistudio.google.com/) でAPIキーを取得
+2. 以下のコマンドで永続化（推奨）：
 
 ```bash
-export GEMINI_API_KEY="your-api-key"
+claude config set --global env NANOBANANA_SKILL_GOOGLE_API_KEY=your-api-key
 ```
 
-APIキーは [Google AI Studio](https://aistudio.google.com/) で取得できます。
+※ 一時的に使用する場合は `export NANOBANANA_SKILL_GOOGLE_API_KEY=your-api-key`
 
 ## 使い方
 
