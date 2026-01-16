@@ -1,18 +1,18 @@
 ---
 name: nanobanana-image
-description: Nano Banana (Google Gemini API) を使って画像を生成するスキル。「画像を生成して」「イラストを作って」「○○の絵を描いて」「画像を作成」「この画像を編集して」「この画像をもとに○○を作って」などの依頼があった場合に使用。テキストからの生成、参照画像からの生成、画像編集に対応。
+description: Nano Banana (Google Gemini API) を使って画像を生成・編集するスキル。「画像を生成して」「イラストを作って」「○○の絵を描いて」「画像を作成」「この画像を編集して」「この画像をもとに○○を作って」「generate an image」「create a picture」「edit this image」などの依頼があった場合に使用。テキストからの生成、参照画像からの生成、画像編集、Google検索グラウンディングによる最新情報を反映した画像生成に対応。「最新の○○」「トレンドを反映」「リアルタイム情報」といった依頼にも対応可能。
 ---
 
 # Nano Banana Image Generation
 
-Google Gemini APIのNano Banana機能を使用した画像生成・編集スキル。
+Google Gemini APIを使用した画像生成・編集スキル。
 
 ## 前提条件
 
 環境変数 `GEMINI_API_KEY` が設定されていること。
 未設定の場合は [Google AI Studio](https://aistudio.google.com/) で取得を依頼。
 
-## 利用可能なモデル
+## モデル
 
 | モデル | ID | 特徴 |
 |--------|-----|------|
@@ -21,68 +21,34 @@ Google Gemini APIのNano Banana機能を使用した画像生成・編集スキ�
 
 ## ワークフロー
 
-画像生成後は `open` コマンドでプレビューを提案すること：
+画像生成後は `open` コマンドでプレビューを提案：
 
 ```bash
 python scripts/generate_image.py "プロンプト" -o image.png && open image.png
 ```
 
-ユーザーが確認したい場合に備え、生成完了後に「`open image.png` で開きますか？」と提案する。
-
-## 基本的な使い方
-
-### テキストから画像生成
+## 基本コマンド
 
 ```bash
+# テキストから画像生成
 python scripts/generate_image.py "夕焼けのビーチで遊ぶ犬" -o dog.png
-# 生成後: open dog.png
-```
 
-### 画像から画像生成（image-to-image）
-
-参照画像をもとに新しい画像を生成：
-
-```bash
+# 参照画像から生成（image-to-image）
 python scripts/generate_image.py "この画像をアニメ風にして" -i reference.png -o anime.png
-```
 
-複数の参照画像を使用：
+# 複数参照画像
+python scripts/generate_image.py "これらを組み合わせてロゴを作成" -i logo1.png -i logo2.png -o new_logo.png
 
-```bash
-python scripts/generate_image.py "これらの画像を組み合わせて新しいロゴを作成" -i logo1.png -i logo2.png -o new_logo.png
-```
+# Google検索グラウンディング（最新情報を反映）
+python scripts/generate_image.py "2024年の最新ファッショントレンド" --search -o fashion.png
 
-### 画像編集
-
-既存の画像を編集：
-
-```bash
-python scripts/generate_image.py "背景を宇宙に変更して" -i photo.png -o space_photo.png
-python scripts/generate_image.py "人物を削除して" -i group.png -o empty.png
-python scripts/generate_image.py "色をもっと鮮やかにして" -i dull.png -o vivid.png
-```
-
-### 複数バリエーション生成
-
-```bash
-python scripts/generate_image.py "かわいい猫" -n 3 -o cat.png
-# → cat_1.png, cat_2.png, cat_3.png
-```
-
-### オプション指定
-
-```bash
-# アスペクト比指定（16:9横長）
+# オプション指定
 python scripts/generate_image.py "横長の風景" --aspect 16:9 -o landscape.png
-
-# 高解像度出力（Pro のみ 4K 対応）
 python scripts/generate_image.py "詳細な建築物" --size 4K -o building.png
-
-# モデル選択
-python scripts/generate_image.py "素早く生成" -m flash -o quick.png
+python scripts/generate_image.py "かわいい猫" -n 3 -o cat.png  # → cat_1.png, cat_2.png, cat_3.png
 ```
 
-## コマンドオプション一覧
+## オプション一覧
 
 | オプション | 説明 |
 |------------|------|
@@ -92,14 +58,17 @@ python scripts/generate_image.py "素早く生成" -m flash -o quick.png
 | `-n, --count` | 生成する画像の数 |
 | `--aspect` | アスペクト比: 1:1, 16:9, 9:16, 4:3, 3:4 等 |
 | `--size` | 画像サイズ: 1K, 2K, 4K |
+| `--search` | Google検索グラウンディングを使用（最新情報を反映） |
 
-## プロンプトのコツ
+## プロンプトの基本
 
 - **具体的に**: 「猫」→「窓辺で日向ぼっこする白い猫」
-- **スタイル指定**: 「写実的」「アニメ風」「油絵風」「ミニマリスト」「水彩画」
-- **構図指定**: 「クローズアップ」「俯瞰」「正面から」「横顔」
-- **照明指定**: 「自然光」「ゴールデンアワー」「ドラマチック」「スタジオ照明」
-- **編集時**: 「〇〇を追加して」「〇〇を削除して」「〇〇を変更して」と明確に
+- **スタイル指定**: 「写実的」「アニメ風」「油絵風」「ミニマリスト」
+- **構図指定**: 「クローズアップ」「俯瞰」「正面から」
+- **編集時**: 「〇〇を追加して」「〇〇を削除して」「〇〇を変更して」
+
+**詳細なプロンプトガイド**: [references/prompt-guide.md](references/prompt-guide.md)
+- フォトリアリスティック、イラスト/ステッカー、テキスト含有、商品写真、ミニマルデザインの5パターン
 
 ## エラー対応
 

@@ -28,6 +28,9 @@ DEFAULT_MODEL = "pro"  # デフォルトはPro
 ASPECT_RATIOS = ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"]
 IMAGE_SIZES = ["1K", "2K", "4K"]  # 4KはProのみ
 
+# Google検索グラウンディング用ツール
+GOOGLE_SEARCH_TOOL = {"google_search": {}}
+
 
 def get_api_key():
     """環境変数からAPIキーを取得"""
@@ -70,6 +73,7 @@ def generate_image(
     count: int = 1,
     aspect_ratio: str | None = None,
     image_size: str | None = None,
+    use_search: bool = False,
 ) -> list[str]:
     """Gemini APIを使用して画像を生成
 
@@ -81,6 +85,7 @@ def generate_image(
         count: 生成する画像の数
         aspect_ratio: アスペクト比
         image_size: 画像サイズ
+        use_search: Google検索グラウンディングを使用するか
 
     Returns:
         生成された画像ファイルのパスリスト
@@ -113,6 +118,10 @@ def generate_image(
             "responseModalities": ["TEXT", "IMAGE"],
         }
     }
+
+    # Google検索グラウンディングを使用する場合
+    if use_search:
+        payload["tools"] = [GOOGLE_SEARCH_TOOL]
 
     # 画像設定
     image_config = {}
@@ -217,6 +226,8 @@ def main():
                         help="アスペクト比")
     parser.add_argument("--size", choices=IMAGE_SIZES,
                         help="画像サイズ")
+    parser.add_argument("--search", action="store_true",
+                        help="Google検索グラウンディングを使用（最新情報を反映）")
 
     args = parser.parse_args()
 
@@ -228,6 +239,7 @@ def main():
         count=args.count,
         aspect_ratio=args.aspect,
         image_size=args.size,
+        use_search=args.search,
     )
 
 
