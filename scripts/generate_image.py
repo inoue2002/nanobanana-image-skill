@@ -134,7 +134,7 @@ def generate_image(
         image_config["numberOfImages"] = count
 
     if image_config:
-        payload["generationConfig"]["imageGenerationConfig"] = image_config
+        payload["generationConfig"]["imageConfig"] = image_config
 
     headers = {"Content-Type": "application/json"}
     data = json.dumps(payload).encode("utf-8")
