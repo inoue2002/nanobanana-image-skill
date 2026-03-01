@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Nano Banana (Gemini API) を使用して画像を生成するスクリプト
+"""Nano Banana 2 (Gemini API) を使用して画像を生成するスクリプト
 
 機能:
 - テキストから画像生成
 - 画像から画像生成（image-to-image）
 - 複数バリエーション生成
 - アスペクト比・サイズ指定
+- 高精度テキストレンダリング
 """
 
 import argparse
@@ -19,14 +20,18 @@ from pathlib import Path
 
 # 利用可能なモデル
 MODELS = {
-    "flash": "gemini-2.5-flash-image",      # ノーマル (高速・効率重視)
-    "pro": "gemini-3-pro-image-preview",    # Nano Banana Pro (高品質・推論強化)
+    "flash": "gemini-3.1-flash-image-preview",  # Nano Banana 2 (Pro品質×Flash速度)
+    "pro": "gemini-3-pro-image-preview",         # Nano Banana Pro (高度なコンテキスト対応)
 }
 
-DEFAULT_MODEL = "pro"  # デフォルトはPro
+DEFAULT_MODEL = "flash"  # デフォルトはNano Banana 2
 
-ASPECT_RATIOS = ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"]
-IMAGE_SIZES = ["1K", "2K", "4K"]  # 4KはProのみ
+ASPECT_RATIOS = [
+    "1:1", "1:4", "1:8",
+    "2:3", "3:2", "3:4", "4:1", "4:3", "4:5",
+    "5:4", "8:1", "9:16", "16:9", "21:9",
+]
+IMAGE_SIZES = ["0.5K", "1K", "2K", "4K"]  # 0.5K(512px)はNano Banana 2のみ
 
 # Google検索グラウンディング用ツール
 GOOGLE_SEARCH_TOOL = {"google_search": {}}
@@ -196,7 +201,7 @@ def generate_image(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Nano Banana で画像を生成",
+        description="Nano Banana 2 で画像を生成",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 使用例:

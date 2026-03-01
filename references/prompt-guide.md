@@ -78,7 +78,7 @@
 
 ## 3. テキスト含有画像
 
-フォントと配置を詳細に指定。**Pro モデル推奨**。
+フォントと配置を詳細に指定。Nano Banana 2 で高精度テキストレンダリングに対応。
 
 ### 要素
 
@@ -157,8 +157,8 @@
 `--search` オプションで最新情報を反映した画像を生成。
 
 ```bash
-# 2024年の最新ファッショントレンドを反映
-python scripts/generate_image.py "2024年秋のファッショントレンドを着た女性" --search -o fashion.png
+# 最新のファッショントレンドを反映
+python scripts/generate_image.py "最新のファッショントレンドを着た女性" --search -o fashion.png
 
 # 最新のスマートフォンデザインを参考に
 python scripts/generate_image.py "最新のスマートフォンのコンセプトデザイン" --search -o phone.png
